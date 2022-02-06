@@ -13,6 +13,7 @@ class PopulateProduct:
         self.image_folder = self.main_folder + 'images/'
         self.brands = ['Apple', 'Tesla', 'Microsoft',
                        'Nike', 'Himel Bikon', 'Facebook']
+        self.data_count = 0
         self.faker = Faker()
 
     def folder_creator(self, folder):
@@ -41,8 +42,6 @@ class PopulateProduct:
         img.save(image_path)
 
     def create_product(self):
-        # image = self.set_img()
-
         product = {
             'name': self.faker.name(),
             'price': round(random.uniform(50, 1000), 2),
@@ -53,12 +52,15 @@ class PopulateProduct:
             'views': random.randrange(0, 100),
 
             'image': self.set_img(),
-            # image
-            # image
-            # image
-            # image
+            'image2': self.set_img(),
+            'image3': self.set_img(),
+            'image4': self.set_img(),
+            'image5': self.set_img(),
+
         }
-        print(f'[+] {product["name"]}')
+
+        self.data_count += 1
+        print(f'[{self.data_count}] {product["name"]}')
         return f'    {product},\n'
 
     def demo_products(self, loop_num):
@@ -75,10 +77,11 @@ class PopulateProduct:
     def delete_all_files(self):
         path = self.cur_dir + '/products/images'
 
-        print(f'[+] Deleting Previous Images...')
+        if os.path.exists(path):
+            print(f'[+] Deleting Previous Images...')
 
-        for file in os.listdir(path):
-            os.remove(path + '/' + file)
+            for file in os.listdir(path):
+                os.remove(path + '/' + file)
 
     def start(self):
         self.delete_all_files()
